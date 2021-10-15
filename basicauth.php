@@ -1,11 +1,17 @@
 <?php
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Text to send if user hits Cancel button';
-    exit;
-} else {
-    echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
-    echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
-}
+    if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header("WWW-Authenticate: Basic realm=\"Private Area\"");
+        header("HTTP/1.0 401 Unauthorized");
+        print "Sorry - you need valid credentials to be granted access!\n";
+        exit;
+    } else {
+        if (($_SERVER['PHP_AUTH_USER'] == 'paul') && ($_SERVER['PHP_AUTH_PW'] == 'hudson')) {
+            print "Welcome to the private area!";
+        } else {
+            header("WWW-Authenticate: Basic realm=\"Private Area\"");
+            header("HTTP/1.0 401 Unauthorized");
+            print "Sorry - you need valid credentials to be granted access!\n";
+            exit;
+        }
+    }
 ?>
